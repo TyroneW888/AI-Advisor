@@ -9,6 +9,8 @@ from sklearn.feature_selection import RFE
 from sklearn.ensemble import StackingClassifier
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from xgboost import XGBClassifier
+import joblib
+
 
 data = pd.read_excel('data\cleaned_clustering_data.xlsx')
 data = data.apply(lambda col: col.fillna(col.mode()[0]))
@@ -67,3 +69,5 @@ stack_model.fit(X_train, y_train)
 y_pred_stack = stack_model.predict(X_test)
 accuracy_stack = accuracy_score(y_test, y_pred_stack)
 print(f"Stacking Model Accuracy: {accuracy_stack}")
+
+joblib.dump(stack_model, 'risk_assessment_model.pkl')
