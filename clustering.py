@@ -46,7 +46,7 @@ y = data['Risk level']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 (X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 
-rfe = RFE(estimator=RandomForestClassifier(random_state=42), n_features_to_select=5)
+rfe = RFE(estimator=RandomForestClassifier(random_state=42), n_features_to_select=7)
 rfe.fit(X_train, y_train)
 selected_features = X.columns[rfe.support_]
 print("Selected Features:", selected_features)
