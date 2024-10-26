@@ -1,14 +1,9 @@
 import joblib
 import pandas as pd
-
-# Load the trained model
 model = joblib.load('risk_assessment_model.pkl')
-
-# Define the input function from the previous instructions
 def get_user_input():
     print("Please enter the following details:")
 
-    # Collect inputs one by one
     too_much_debt = int(input("1. Too much debt (1 - Strongly Disagree, ..., 7 - Strongly Agree): "))
     
     print("\n2. How often do you have money left over at the end of the month?")
@@ -26,15 +21,10 @@ def get_user_input():
     print("   6: Permanently sick/disabled\n   7: Unemployed\n   8: Retired")
     employment_status = int(input("Choose the appropriate number: "))
 
-    # Age group selection based on ordinal encoding
     print("\n5. Age Group (Choose one of the following numbers):")
     print("   1: 18-24\n   2: 25-34\n   3: 35-44\n   4: 45-54\n   5: 55-64\n   6: 65+")
     age_group = int(input("Enter the number corresponding to your age group: "))
-
-    # Collect the user's self-assessed risk level for comparison
     user_risk_level = int(input("\nPlease provide your self-assessed risk level (1-10): "))
-
-    # Store inputs in a dictionary
     input_data = {
         'too much debt': too_much_debt,
         'money left': money_left,
@@ -45,16 +35,9 @@ def get_user_input():
     
     return input_data, user_risk_level
 
-# Get user input
 input_data, user_risk_level = get_user_input()
-
-# Convert to DataFrame (the model expects data in this form)
 input_df = pd.DataFrame([input_data])
-
-# Use the loaded model to make a prediction
 predicted_risk_level = model.predict(input_df)[0]
-
-# Compare and generate a warning if necessary
 if predicted_risk_level < user_risk_level:
     print("\nWarning: The model suggests a lower risk level than provided. Please review!")
 else:
