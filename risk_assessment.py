@@ -1,6 +1,6 @@
 import joblib
 import pandas as pd
-model = joblib.load('risk_assessment_model.pkl')
+model1 = joblib.load('risk_assessment_model.pkl')
 def get_user_input():
     print("Please enter the following details:")
 
@@ -24,20 +24,32 @@ def get_user_input():
     print("\n5. Age Group (Choose one of the following numbers):")
     print("   1: 18-24\n   2: 25-34\n   3: 35-44\n   4: 45-54\n   5: 55-64\n   6: 65+")
     age_group = int(input("Enter the number corresponding to your age group: "))
+
+    print("\n6. Gender (Choose one of the following numbers):")
+    print(' 1: Male\n 2: Female')
+    gender = int(input("Enter the number corresponding to your Gender: "))
+
+    print("\n7. Marital (Choose one of the following numbers):")
+    print(' 1: Married\n 2: Single\n 3:Separated\n 4: Divorced\n 5: Widowed')
+    marital = int(input("Enter the number corresponding to your Marital Status: "))
+
+
     user_risk_level = int(input("\nPlease provide your self-assessed risk level (1-10): "))
     input_data = {
         'too much debt': too_much_debt,
         'money left': money_left,
         'Household annual income': household_income,
         'Current employment status': employment_status,
-        'Age Group': age_group
+        'Marital status':marital,
+        'Gender': gender,
+         'Age Group': age_group
     }
     
     return input_data, user_risk_level
 
-input_data, user_risk_level = get_user_input()
-input_df = pd.DataFrame([input_data])
-predicted_risk_level = model.predict(input_df)[0]
+input_data1, user_risk_level = get_user_input()
+input_df1 = pd.DataFrame([input_data1])
+predicted_risk_level = model1.predict(input_df1)[0]
 if predicted_risk_level < user_risk_level:
     print("\nWarning: The model suggests a lower risk level than provided. Please review!")
 else:
